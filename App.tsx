@@ -122,11 +122,10 @@ const ParticleBackground = () => {
       constructor(x: number, y: number) {
         this.x = x; 
         this.y = y; 
-        this.size = Math.random() * 2.5 + 1; // Levemente maiores
-        this.vx = (Math.random() - 0.5) * 0.4; // Velocidade autônoma sutil
+        this.size = Math.random() * 2.5 + 1;
+        this.vx = (Math.random() - 0.5) * 0.4;
         this.vy = (Math.random() - 0.5) * 0.4; 
         this.density = (Math.random() * 20) + 1;
-        // Cores mais vibrantes para melhor visibilidade
         this.color = Math.random() > 0.4 ? 'rgba(212, 175, 55, 0.6)' : 'rgba(212, 175, 55, 0.2)';
       }
       draw() {
@@ -137,17 +136,14 @@ const ParticleBackground = () => {
         ctx.fill();
       }
       update() {
-        // Movimento autônomo constante
         this.x += this.vx;
         this.y += this.vy;
 
-        // Wrapping (reaparece no lado oposto)
         if (this.x < 0) this.x = canvas.width;
         if (this.x > canvas.width) this.x = 0;
         if (this.y < 0) this.y = canvas.height;
         if (this.y > canvas.height) this.y = 0;
 
-        // Interação com mouse/touch (repulsão)
         let dx = mouse.x - this.x; 
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
@@ -161,7 +157,7 @@ const ParticleBackground = () => {
 
     const init = () => {
       particles = [];
-      const num = (canvas.width * canvas.height) / 8000; // Densidade equilibrada
+      const num = (canvas.width * canvas.height) / 8000;
       for (let i = 0; i < num; i++) {
         particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
       }
@@ -290,7 +286,6 @@ Gostaria de agendar o meu diagnóstico agora.`;
       <div className="max-w-xl w-full premium-card p-6 md:p-10 rounded-3xl relative overflow-hidden border-gold/30">
         <button onClick={onClose} className="absolute top-4 right-4 md:top-6 md:right-6 text-white/40 hover:text-white transition-colors z-20"><X size={24}/></button>
         
-        {/* Progress Visual */}
         <div className="mb-6 md:mb-8 relative z-10">
           <div className="flex justify-between items-center mb-2">
             <span className="text-[9px] md:text-[10px] font-bold text-gold uppercase tracking-[0.2em]">Passo {step} de {questions.length}</span>
@@ -353,6 +348,14 @@ export default function App() {
     }
   };
 
+  // Configuração das âncoras para evitar erros de acentuação no ID técnico
+  const navItems = [
+    { label: 'Gargalo', id: 'gargalo' },
+    { label: 'Método', id: 'metodo' },
+    { label: 'Segurança', id: 'seguranca' },
+    { label: 'FAQ', id: 'faq' }
+  ];
+
   return (
     <div className="relative w-full overflow-x-hidden min-h-screen">
       <ParticleBackground />
@@ -366,15 +369,14 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 md:px-6 flex justify-between items-center">
           <div className="flex items-center gap-3 md:gap-4 cursor-pointer group" onClick={(e) => scrollToSection(e, 'top')}>
             <LocalLogo className="h-8 md:h-12 w-auto group-hover:scale-110" />
-            <span className="text-white font-cinzel font-bold text-xs sm:text-sm md:text-xl tracking-[0.2em] uppercase">Protocolo Odonto</span>
+            <span className="text-white font-cinzel font-bold text-xs sm:text-sm md:text-xl tracking-[0.2em] uppercase whitespace-nowrap">Protocolo Odonto</span>
           </div>
           <div className="hidden lg:flex items-center gap-10">
-            {['Gargalo', 'Método', 'Segurança', 'FAQ'].map(label => (
-              <a key={label} href={`#${label.toLowerCase()}`} onClick={(e) => scrollToSection(e, label.toLowerCase())} className="text-[10px] font-bold uppercase tracking-widest text-white/60 hover:text-gold transition-colors">{label}</a>
+            {navItems.map(item => (
+              <a key={item.id} href={`#${item.id}`} onClick={(e) => scrollToSection(e, item.id)} className="text-[10px] font-bold uppercase tracking-widest text-white/60 hover:text-gold transition-colors">{item.label}</a>
             ))}
             <button onClick={() => setIsModalOpen(true)} className="bg-gold-metallic text-black px-8 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all shadow-lg font-black">Agendar Diagnóstico</button>
           </div>
-          {/* Mobile version of the button - now matching the desktop pill-style */}
           <button 
             onClick={() => setIsModalOpen(true)} 
             className="lg:hidden bg-gold-metallic text-black px-5 py-2.5 rounded-full text-[9px] font-bold uppercase tracking-widest hover:scale-105 transition-all shadow-lg font-black"
@@ -385,14 +387,12 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <header className="min-h-screen flex items-center pt-32 md:pt-44 pb-16 md:pb-20 px-4 md:px-6 relative z-10 overflow-hidden">
-        {/* Layout restaurado para grid 50/50 como solicitado */}
+      <header id="top" className="min-h-screen flex items-center pt-32 md:pt-44 pb-16 md:pb-20 px-4 md:px-6 relative z-10 overflow-hidden">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 md:gap-16 items-center w-full">
           <div className="space-y-6 md:space-y-10 text-center lg:text-left relative z-20">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/30 text-gold text-[9px] md:text-[10px] font-bold tracking-widest uppercase mx-auto lg:mx-0">
               <Award size={14} /> Especialistas em High-Ticket
             </div>
-            {/* Ajuste fino da tipografia: Redução agressiva apenas onde sobrepõe (lg+) para garantir encaixe na coluna */}
             <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-[60px] xl:text-[76px] font-cinzel font-bold leading-[1.05] md:leading-[1.1] relative z-20 pr-4">
               A&nbsp;Engenharia por trás das <br className="hidden md:block" />
               <span className="gold-gradient">Agendas de Elite.</span>
@@ -407,7 +407,6 @@ export default function App() {
             </div>
           </div>
           <div className="relative lg:block hidden">
-            {/* Tamanho da imagem restaurado ao padrão original (100% da coluna) */}
             <div className="relative z-10 w-full aspect-square rounded-[60px] overflow-hidden border border-white/10 premium-card p-4 animate-float shadow-[0_0_60px_rgba(212,175,55,0.1)]">
                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800" alt="Clinic Interior" className="w-full h-full object-cover rounded-[40px] grayscale-[0.3]" />
             </div>
