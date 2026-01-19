@@ -38,8 +38,42 @@
             -webkit-text-fill-color: transparent;
         }
 
+        /* Botão Premium Ultra-Atrativo */
         .bg-gold-metallic {
-            background: linear-gradient(135deg, #B8860B 0%, #D4AF37 50%, #FFD700 100%);
+            background: linear-gradient(135deg, #B8860B 0%, #D4AF37 45%, #FFD700 50%, #D4AF37 55%, #B8860B 100%);
+            background-size: 200% 100%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.6);
+            transition: all 0.4s ease;
+        }
+
+        .bg-gold-metallic:hover {
+            background-position: 100% 0;
+            box-shadow: 0 15px 40px -5px rgba(212, 175, 55, 0.8);
+            filter: brightness(1.1);
+        }
+
+        /* Efeito Shimmer (Varredura de Luz) */
+        .btn-shimmer::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: rotate(30deg);
+            transition: none;
+            animation: shimmer 4s infinite;
+            filter: blur(15px);
+        }
+
+        @keyframes shimmer {
+            0% { left: -60%; opacity: 0; }
+            5% { opacity: 1; }
+            20% { left: 130%; opacity: 0; }
+            100% { left: 130%; opacity: 0; }
         }
 
         .premium-card {
